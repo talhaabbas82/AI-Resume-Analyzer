@@ -1,0 +1,77 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="./style.css" />
+  <title>Resume Analyzer Tracer</title>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+      <div class="navbar">
+        <div class="logo">
+          <i class="fa-solid fa-file-csv"></i>
+          <h1>ResumeBoost AI</h1>
+        </div>
+        <div class="buttons">
+          <button class="purplebtn" onclick="logout()">
+            Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- File Uploading -->
+    <div class="resumeupload">
+      <div class="content">
+        <h1>Let`s Analyze Your Resume</h1>
+        <p>
+          Choose the job you're applying for, upload your CV, and let our AI
+          give you a full breakdown — resume score, ATS score, missing skills,
+          and improvement suggestions.
+        </p>
+        <span id="selectedJob">No Job Selected</span>
+      </div>
+      <div class="fileinput">
+        <input type="file" id="fileinput" name="file" />
+        <div>
+          <button onclick="uploadCV()" class="purplebtn">
+            Analyze Selected Job
+          </button>
+          <button onclick="jobdetails()" class="purplebtn">
+            View Jobs Details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="airesponse">
+      <div class="scores">
+        <div class="ats">
+          <h1>ATS SCORE <span id="ats">0</span></h1>
+        </div>
+        <div class="ats">
+          <h1>RESUME SCORE <span id="resumescore">0</span></h1>
+        </div>
+        <div class="ats">
+          <h1>MATCH PERCENTAGE <span id="MatchPercentage">0</span></h1>
+        </div>
+      </div>
+      <ul class="missing" id="missing"></ul>
+    </div>
+
+  <!-- JavaScript -->
+  <script src="./app.js"></script>
+</body>
+</html>

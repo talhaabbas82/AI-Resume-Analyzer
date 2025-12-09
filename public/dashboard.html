@@ -2,166 +2,189 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Dashboard - AI Resume Analyzer</title>
+  <title>Job Tracker Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6fa;
-      display: flex;
-      height: 100vh;
+      font-family: Arial;
+      background: #f5f5f5;
     }
 
     /* Sidebar */
     .sidebar {
       width: 250px;
-      background: #2d3436;
-      color: white;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
+      height: 100vh;
+      background: #222;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 20px;
     }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 40px;
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
-
-    .menu a {
-      text-decoration: none;
-      color: white;
+    .sidebar a {
       display: block;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      padding: 15px;
+      color: #eee;
+      text-decoration: none;
       transition: 0.3s;
     }
-
-    .menu a:hover {
-      background: #636e72;
+    .sidebar a:hover {
+      background: #444;
     }
 
     /* Main */
     .main {
-      flex: 1;
-      padding: 30px;
-      overflow-y: auto;
+      margin-left: 260px;
+      padding: 20px;
     }
 
-    h2 { margin-top: 0; }
-
-    .upload-box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      margin-bottom: 25px;
+    .topbar {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      box-shadow: 0px 0px 5px #ccc;
     }
 
-    .upload-box input {
-      margin-top: 15px;
-    }
-
-    .btn-analyze {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #0984e3;
-      color: white;
+    button {
+      padding: 8px 12px;
       border: none;
-      font-size: 16px;
-      border-radius: 8px;
+      border-radius: 5px;
+      background: #4CAF50;
+      color: white;
       cursor: pointer;
-      transition: 0.3s;
     }
+    button:hover { opacity: 0.85; }
 
-    .btn-analyze:hover { background: #74b9ff; }
-
-    /* Resume Cards */
-    .resume-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+    table {
+      width: 100%;
+      background: white;
+      border-collapse: collapse;
+      box-shadow: 0 0 5px #ccc;
     }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    th { background: #fafafa; }
 
-    .resume-card {
+    .delete-btn { background: red; }
+    .update-btn { background: #007bff; }
+
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-box {
+      width: 400px;
       background: white;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: 0.3s;
+      border-radius: 10px;
     }
-
-    .resume-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    input, textarea, select {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 10px;
     }
-
-    .score {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 10px;
-      color: #0984e3;
-    }
-
-    .view-btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 8px 15px;
-      background: #dfe6e9;
-      border-radius: 6px;
-      text-decoration: none;
-      color: #2d3436;
-      transition: 0.3s;
-    }
-
-    .view-btn:hover {
-      background: #b2bec3;
-    }
-
   </style>
 </head>
 <body>
 
+  <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="logo">Dashboard</div>
-    <div class="menu">
-      <a href="#">My Resumes</a>
-      <a href="#">Analyze Resume</a>
-      <a href="#">Settings</a>
-      <a href="#">Logout</a>
-    </div>
+    <h2>Dashboard</h2>
+    <a href="#">Jobs</a>
+    <a href="./resume.html">Resume Analyzer</a>
+    <a href="#">Settings</a>
+    <a href="./home.html">Logout</a>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="main">
-    <h2>Upload & Analyze Resume</h2>
 
-    <div class="upload-box">
-      <h3>Upload Your CV</h3>
-      <input type="file" id="cvFile" accept="application/pdf" />
-      <button class="btn-analyze">Analyze with Gemini AI</button>
+    <div class="topbar">
+      <h2>Your Jobs</h2>
+      <button onclick="openAddModal()">+ Add Job</button>
     </div>
 
-    <h3>Your Resumes</h3>
-    <div class="resume-list">
-
-      <div class="resume-card">
-        <h4>Resume_01.pdf</h4>
-        <div class="score">Score: 82%</div>
-        <a href="#" class="view-btn">View Result</a>
-      </div>
-
-      <div class="resume-card">
-        <h4>Resume_02.pdf</h4>
-        <div class="score">Score: 76%</div>
-        <a href="#" class="view-btn">View Result</a>
-      </div>
-
-    </div>
-
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Position</th>
+          <th>Status</th>
+          <th style="width:150px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="jobTable"></tbody>
+    </table>
   </div>
+
+  <!-- ADD MODAL -->
+  <div class="modal" id="addModal">
+    <div class="modal-box">
+      <h3>Add Job</h3>
+
+      <input id="company" placeholder="Company">
+      <input id="position" placeholder="Position">
+      <textarea id="jobDescription" placeholder="Job Description"></textarea>
+
+      <select id="status">
+        <option value="Pending">Pending</option>
+        <option value="Interview">Interview</option>
+        <option value="Selected">Selected</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+
+      <textarea id="notes" placeholder="Notes"></textarea>
+
+      <button onclick="addJob()">Save</button>
+      <button style="background:gray;" onclick="closeAddModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- UPDATE MODAL -->
+  <div class="modal" id="updateModal">
+    <div class="modal-box">
+      <h3>Update Job</h3>
+
+      <input id="u_company">
+      <input id="u_position">
+      <textarea id="u_jobDescription"></textarea>
+
+      <select id="u_status">
+        <option value="Pending">Pending</option>
+        <option value="Interview">Interview</option>
+        <option value="Selected">Selected</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+
+      <textarea id="u_notes"></textarea>
+
+      <button onclick="saveUpdate()">Update</button>
+      <button style="background:gray;" onclick="closeUpdateModal()">Cancel</button>
+    </div>
+  </div>
+
+
+<script src="app.js">
+
+</script>
 
 </body>
 </html>

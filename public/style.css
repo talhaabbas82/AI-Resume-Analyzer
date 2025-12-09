@@ -1,0 +1,197 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 0;
+  color: #fff;
+}
+
+/* ===== Header / Navbar ===== */
+.header {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 30px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  color: #00e676;
+}
+
+.logo h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.buttons button {
+  background-color: #ff4081;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #e73370;
+}
+
+/* ===== Resume Upload Section ===== */
+.resumeupload {
+  width: 100%;
+  max-width: 900px;
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  margin-bottom: 30px;
+}
+
+.resumeupload .content h1 {
+  color: #00e676;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.resumeupload .content p {
+  color: #ccc;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.resumeupload .content span {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.fileinput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.fileinput input[type="file"] {
+  width: 80%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.fileinput button {
+  width: 200px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+  background-color: #00e676;
+}
+
+.fileinput button:hover {
+  background-color: #00c853;
+}
+
+/* ===== AI Response Section ===== */
+.airesponse {
+  width: 100%;
+  max-width: 900px;
+  background: #111;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.scores {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.ats h1 {
+  font-size: 20px;
+  color: #00e676;
+}
+
+.ats h1 span {
+  color: #ffeb3b;
+  font-weight: bold;
+}
+
+.missing {
+  list-style: none;
+  padding-left: 0;
+}
+
+.missing li {
+  background: #222;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 6px;
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* ===== General Buttons ===== */
+.purplebtn {
+  background-color: #9c27b0;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.purplebtn:hover {
+  background-color: #7b1fa2;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 768px) {
+  .scores {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .fileinput input[type="file"] {
+    width: 95%;
+  }
+
+  .fileinput button {
+    width: 95%;
+  }
+}

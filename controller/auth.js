@@ -19,31 +19,6 @@ async function auth(req,res){
 };
 
 
-// async function Signup(req,res,) {
-//      try{
-//           const {Name , userName , Email, Password } = req.body;
-          
-//           const exist = await User.findOne({Email});
-//           if (exist) {
-//       return res.send({
-//         status: 400,
-//         message: "User already exists",
-//       });
-//     }
-//       const hash = await bcrypt.hash(Password,10);
-      
-//       const newUser = await User.create({Name, userName, Email, Password:hash});
-
-//       newUser.save();
-//      }
-//      catch(error){
-//           res.send({
-//             status: 404,
-//             message: "user is not created",
-//             error,
-//           })
-//      }
-// }
 
 
 async function Signup(req, res) {
@@ -96,7 +71,7 @@ async function Login(req,res) {
   const match = await bcrypt.compare(Password, user.Password);
   if (!match) return res.json({ message: "Wrong password" });
 
-  const token = jwt.sign({ id: User._id }, process.env.JWT);
+  const token = jwt.sign({ id: User._id }, process.env.JWTSECRETKEY);
   console.log(token);
 
   res.json({ message: "Login successful", token });

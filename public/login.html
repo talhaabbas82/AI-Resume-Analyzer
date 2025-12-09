@@ -1,77 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <style>
-        body {
-margin: 0;
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg, #ff6a6a, #ff3c89);
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.container {
-width: 350px;
-padding: 30px;
-background: #ffffff;
-border-radius: 15px;
-box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-text-align: center;
-}
-h2 {
-margin-bottom: 20px;
-color: #333;
-}
-input {
-width: 100%;
-padding: 12px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 10px;
-font-size: 15px;
-}
-button {
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-background: #ff3c89;
-border: none;
-color: white;
-font-size: 16px;
-font-weight: bold;
-border-radius: 10px;
-cursor: pointer;
-transition: 0.3s;
-}
-button:hover {
-background: #d92770;
-}
-a {
-display: block;
-margin-top: 15px;
-color: #ff3c89;
-text-decoration: none;
-}
-a:hover {
-text-decoration: underline;
-}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <style>
+    body { font-family: Arial; background: #f5f5f5; }
+    .box {
+      width: 350px; margin: 50px auto; padding: 25px;
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input {
+      width: 100%; padding: 10px; margin: 10px 0;
+      border: 1px solid #aaa; border-radius: 5px;
+    }
+    button {
+      width: 100%; padding: 10px; background: green;
+      color: #fff; border: none; border-radius: 5px;
+      cursor: pointer; font-size: 16px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="container">
-<h2>Login</h2>
-<input type="email" id="Email" placeholder="Email" />
-<input type="password" id="Password" placeholder="Password" />
-<button onclick="Login(event)">Login</button>
-<a href="home.html">Don't have an account? Signup</a>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="app.js"></script>
+
+  <div class="box">
+    <h2>Login</h2>
+
+    <input type="email" id="Email" placeholder="Email" />
+    <input type="password" id="Password" placeholder="Password" />
+
+    <button type="submit" onclick="Login(event)">Login</button>
+
+
+    <p>Don't have an account? <a href="./signup.html">Signup</a></p>
+  </div>
+
+  
+
+  <script src="app.js">
+    
+  </script>
+
 </body>
 </html>
-
-

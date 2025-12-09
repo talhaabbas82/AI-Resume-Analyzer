@@ -1,77 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-    <style>
-    body {
-margin: 0;
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg, #4a90e2, #9036ff);
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.container {
-width: 350px;
-padding: 30px;
-background: #ffffff;
-border-radius: 15px;
-box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-text-align: center;
-}
-h2 {
-margin-bottom: 20px;
-color: #333;
-}
-input {
-width: 100%;
-padding: 12px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 10px;
-font-size: 15px;
-}
-button {
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-background: #6a39ff;
-border: none;
-color: white;
-font-size: 16px;
-font-weight: bold;
-border-radius: 10px;
-cursor: pointer;
-transition: 0.3s;
-}
-button:hover {
-background: #5227d9;
-}
-a {
-display: block;
-margin-top: 15px;
-color: #6a39ff;
-text-decoration: none;
-}
-a:hover {
-text-decoration: underline;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup</title>
+  <style>
+    body { font-family: Arial; background: #f5f5f5; }
+    .box {
+      width: 350px; margin: 50px auto; padding: 25px;
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input {
+      width: 100%; padding: 10px; margin: 10px 0;
+      border: 1px solid #aaa; border-radius: 5px;
+    }
+    button {
+      width: 100%; padding: 10px; background: blue;
+      color: #fff; border: none; border-radius: 5px;
+      cursor: pointer; font-size: 16px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="container">
-<h2>Signup</h2>
-<input type="text" id="Name" placeholder="Full Name" />
-<input type="text" id="userName" placeholder="Username" />
-<input type="email" id="Email" placeholder="Email" />
-<input type="password" id="Password" placeholder="Password" />
-<button onclick="Signup(event)">Sign Up</button>
-<a href="login.html">Already have an account? Login</a>
-<script src="app.js"></script>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <div class="box">
+    <h2>Signup</h2>
+
+    <input type="text" id="Name" placeholder="Full Name" />
+    <input type="text" id="userName" placeholder="Username" />
+    <input type="email" id="Email" placeholder="Email" />
+    <input type="password" id="Password" placeholder="Password" />
+
+    <button type="submit" onclick="Signup(event)">Signup</button>
+
+    <p>Already have an account? <a href="./login.html">Login</a></p>
+  </div>
+
+  
+
+  <script src="./app.js">
+    
+  </script>
+
 </body>
 </html>
