@@ -1,3 +1,5 @@
+import axios from "axios";
+const API = import.meta.env.Vercel_URl;
 
 
 async function Signup(e) {
@@ -13,7 +15,7 @@ async function Signup(e) {
   }
 
   try {
-    const response = await axios.post("ai-resume-analyzer-psi-lyart.vercel.app/api", {
+    const response = await axios.post(`${API}/Signup`, {
       Name,
       userName,
       Email,
@@ -45,7 +47,7 @@ async function Login(e) {
   }
 
   try {
-    const response = await axios.post("ai-resume-analyzer-psi-lyart.vercel.app/api", {
+    const response = await axios.post(`${API}/Login`, {
       Email,
       Password,
     });
@@ -77,6 +79,7 @@ window.jobDescription = "Frontend Developer"; // Test ke liye
 document.getElementById("selectedJob").innerText = window.jobDescription;
 
 
+
    async function uploadCV() {
     
    
@@ -97,7 +100,7 @@ document.getElementById("selectedJob").innerText = window.jobDescription;
     formdata.append("jobDescription", jobdes); // ✅ MOST IMPORTANT FIX
 
     const response = await axios.post(
-      "ai-resume-analyzer-psi-lyart.vercel.app/api",
+      `${API}/upload`,
       formdata,
       {
         headers: {
