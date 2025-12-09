@@ -13,7 +13,7 @@ async function Signup(e) {
   }
 
   try {
-    const response = await axios.post("http://localhost:3000/api/Signup", {
+    const response = await axios.post("ai-resume-analyzer-psi-lyart.vercel.app/api", {
       Name,
       userName,
       Email,
@@ -45,7 +45,7 @@ async function Login(e) {
   }
 
   try {
-    const response = await axios.post("http://localhost:3000/api/Login", {
+    const response = await axios.post("ai-resume-analyzer-psi-lyart.vercel.app/api", {
       Email,
       Password,
     });
@@ -97,7 +97,7 @@ document.getElementById("selectedJob").innerText = window.jobDescription;
     formdata.append("jobDescription", jobdes); // ✅ MOST IMPORTANT FIX
 
     const response = await axios.post(
-      "http://localhost:3000/api/upload",
+      "ai-resume-analyzer-psi-lyart.vercel.app/api",
       formdata,
       {
         headers: {
