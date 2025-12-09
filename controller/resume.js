@@ -59,18 +59,45 @@ ${jobDescription}
 
     console.log(prompt);
     // Step 3: Call Gemini
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: [{ text: prompt }],
-    });
+   // Step 3: Call Gemini
+const response = await ai.models.generateContent({
+  model: "gemini-2.5-flash",
+  contents: [{ text: prompt }],
+});
+
+// ✅ SIRF YE USE HOGA (NEW SDK)
+const aiResponse = response.text();
+
+
+console.log("✅ AI FINAL TEXT:", aiResponse);
+let finalJSON;
+
+try {
+  finalJSON = JSON.parse(aiResponse);
+} catch (err) {
+  console.log("❌ AI NE VALID JSON NAHI DIYA");
+
+  finalJSON = {
+    "Resume Score": 0,
+    "ATS Score": 0,
+    "Match Percentage": 0,
+    "Missing Skills": ["AI failed to return valid JSON"],
+    "Corrected Resume": ""
+  };
+}
+
+
+
+
+
     console.log("Response Ai", response);
-   const aiResponse =
+   const AiResponse =
   response?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
     return res.json({
-      success: true,
-      filename: req.file.filename,
-      analysis: aiResponse,
-    });
+  success: true,
+  filename: req.file.filename,
+  analysis: finalJSON,
+});
     
   } catch (error) {
     return res.status(500).json({ error: error.message });
