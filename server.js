@@ -24,6 +24,21 @@ app.use("/api", router);
 app.use("/api", jobroutes);
 app.use("/api",Authorization, resumeRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
+app.get("/", (req, res) => {
+  res.send("Backend is running ✅");
 });
+
+app.post("/api/test", (req, res) => {
+  res.json({ message: "API working ✅" });
+});
+
+
+module.exports = app; 
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running locally on port ${PORT}`);
+  });
+}
+
