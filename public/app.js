@@ -1,5 +1,4 @@
-import axios from "axios";
-const API = import.meta.env.Vercel_URl;
+
 
 
 async function Signup(e) {
@@ -15,7 +14,7 @@ async function Signup(e) {
   }
 
   try {
-    const response = await axios.post(`${API}/Signup`, {
+    const response = await axios.post(`https://ai-resume-analyzer-psi-lyart.vercel.app/api/Signup`, {
       Name,
       userName,
       Email,
@@ -47,7 +46,7 @@ async function Login(e) {
   }
 
   try {
-    const response = await axios.post(`${API}/Login`, {
+    const response = await axios.post(`https://ai-resume-analyzer-psi-lyart.vercel.app/api/Login`, {
       Email,
       Password,
     });
@@ -70,75 +69,102 @@ async function Login(e) {
 
 function logout() {
   localStorage.removeItem("token");
+  alert("Logged out successfully.");
   window.location.href = "login.html";
 }
 
 
+async function uploadCV() {
+  const analyzeBtn = document.getElementById('analyzeBtn'); 
 
-window.jobDescription = "Frontend Developer"; // Test ke liye
-document.getElementById("selectedJob").innerText = window.jobDescription;
+  // 1. Check Token
+  const token = localStorage.getItem("token");
+  if (!token) {
+      alert("Authentication failed. Please log in again.");
+      window.location.href = "login.html";
+      return;
+  }
+  
+  // 2. UI Loading State
+  if (analyzeBtn) {
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = 'Analyzing...';
+  }
 
-
-
-   async function uploadCV() {
-    
-   
   try {
-    const token = localStorage.getItem("token");
+
     const fileInput = document.getElementById("fileinput");
     const file = fileInput.files[0];
+    const jobdes = "GENERAL_CV_QUALITY_CHECK"; // Or get value from an input field if you have one
 
     if (!file) {
       alert("Please select a file!");
       return;
     }
 
-    const jobdes = window.jobDescription;
-
     const formdata = new FormData();
     formdata.append("file", file);
-    formdata.append("jobDescription", jobdes); // ✅ MOST IMPORTANT FIX
+    formdata.append("jobDescription", jobdes); 
 
-    const response = await axios.post(
-      `${API}/upload`,
+    // 3. API Call
+    // Note: ensure this URL matches your actual backend URL (localhost vs vercel)
+    const response = await axios.post("http://localhost:3000/api/upload",
       formdata,
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
         },
       }
     );
+    
+    console.log("Server Response:", response.data); // Debugging
 
-    const aiResponseData = response.data.analysis;
-    let clean = aiResponseData.replace(/```json|```/g, "").trim();
+    // 4. Handle Data
+    // Backend now sends { success: true, analysis: {Object} }
+    const parsed = response.data.analysis; 
+    
+    if (!parsed) {
+        throw new Error("No analysis data received.");
+    }
 
-    const parsed = response.data.analysis;
+    // 5. Update UI
+    document.getElementById("ats").innerText = parsed["ATS Score"] || 0;
+    document.getElementById("resumescore").innerText = parsed["Resume Score"] || 0;
+    document.getElementById("matchPercentage").innerText = parsed["Match Percentage"] || 0; 
+    
+    // Update Corrected Resume Text
+    const correctedSection = document.getElementById("correctedResumeText");
+    if(correctedSection) {
+        correctedSection.innerText = parsed["Corrected Resume"] || "No suggestions provided.";
+    }
 
-
-    document.getElementById("ats").innerText =
-      parsed["ATS Score"] || "N/A";
-
-    document.getElementById("resumescore").innerText =
-      parsed["Resume Score"] || "N/A";
-
+    // Update Missing Skills
     const missing = document.getElementById("missing");
     missing.innerHTML = "";
 
-    if (Array.isArray(parsed["Missing Skills"])) {
-      parsed["Missing Skills"].forEach((skills) => {
-        skills = skills.replace(/\*/g, "");
+    if (Array.isArray(parsed["Missing Skills"]) && parsed["Missing Skills"].length > 0) {
+      parsed["Missing Skills"].forEach((skill) => {
+        const cleanSkill = skill.replace(/\*/g, "").trim();
         const li = document.createElement("li");
-        li.textContent = skills;
+        li.textContent = cleanSkill;
         missing.appendChild(li);
       });
     } else {
-      missing.innerHTML = "<li>No Missing Skills Found</li>";
+      missing.innerHTML = "<li>No Critical Missing Skills Found</li>";
     }
 
     alert("✅ Resume Successfully Analyzed!");
 
   } catch (error) {
     console.error("UPLOAD ERROR:", error);
-    alert("❌ Resume upload failed");
+    const errorMessage = error.response?.data?.error || error.message || "Upload failed.";
+    alert(`❌ ${errorMessage}`);
+  } finally {
+    // 6. Reset UI
+    if (analyzeBtn) {
+      analyzeBtn.disabled = false;
+      analyzeBtn.textContent = 'Analyze Selected Job';
+    }
   }
-};
+}

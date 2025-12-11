@@ -1,77 +1,95 @@
 
 
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link rel="stylesheet" href="./style.css" />
-  <title>Resume Analyzer Tracer</title>
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>AI Resume Analyzer</title>
+    </head>
 <body>
-  <!-- Header -->
-  <div class="header">
-      <div class="navbar">
+    
+    <header class="main-header">
         <div class="logo">
-          <i class="fa-solid fa-file-csv"></i>
-          <h1>ResumeBoost AI</h1>
+            <i class="fa-solid fa-brain"></i> <h1>ResumeFlow AI</h1>
         </div>
-        <div class="buttons">
-          <button class="purplebtn" onclick="logout()">
-            Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- File Uploading -->
-    <div class="resumeupload">
-      <div class="content">
-        <h1>Let`s Analyze Your Resume</h1>
-        <p>
-          Choose the job you're applying for, upload your CV, and let our AI
-          give you a full breakdown — resume score, ATS score, missing skills,
-          and improvement suggestions.
-        </p>
-        <span id="selectedJob">No Job Selected</span>
-      </div>
-      <div class="fileinput">
-        <input type="file" id="fileinput" name="file" />
-        <div>
-          <button onclick="uploadCV()" class="purplebtn">
-            Analyze Selected Job
-          </button>
-          <button onclick="jobdetails()" class="purplebtn">
-            View Jobs Details
-          </button>
-        </div>
-      </div>
-    </div>
+        <button class="action-btn logout-btn" id="logoutBtn" onclick="logout()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+        </button>
+    </header>
 
-    <div class="airesponse">
-      <div class="scores">
-        <div class="ats">
-          <h1>ATS SCORE <span id="ats">0</span></h1>
-        </div>
-        <div class="ats">
-          <h1>RESUME SCORE <span id="resumescore">0</span></h1>
-        </div>
-        <div class="ats">
-          <h1>MATCH PERCENTAGE <span id="MatchPercentage">0</span></h1>
-        </div>
-      </div>
-      <ul class="missing" id="missing"></ul>
-    </div>
+    <main class="container">
 
-  <!-- JavaScript -->
-  <script src="./app.js"></script>
+        <section class="analysis-input-card">
+            <div class="input-header">
+                <h2>Optimize Your Career Trajectory</h2>
+                <p>Upload your resume (PDF/DOCX), select the target job, and get instant, actionable feedback powered by Gemini AI.</p>
+            </div>
+            
+            <div class="job-status">
+                <i class="fa-solid fa-briefcase"></i>
+                <span id="selectedJob">No Job Selected</span>
+                <button onclick="jobdetails()" class="secondary-btn">
+                    <i class="fa-solid fa-search"></i> View/Select Jobs
+                </button>
+            </div>
+
+            <div class="file-upload-area">
+                <input type="file" id="fileinput" name="file" accept=".pdf,.doc,.docx" class="hidden-file-input" />
+                <label for="fileinput" class="file-label">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Click here to select your CV/Resume</span>
+                </label>
+                
+                <button onclick="uploadCV()" class="primary-btn analyze-btn" id="analyzeBtn"> 
+                    <i class="fa-solid fa-microscope"></i> Analyze Selected Job
+                </button>
+            </div>
+        </section>
+
+        <section class="results-card">
+            <h2><i class="fa-solid fa-chart-line"></i> Comprehensive Analysis</h2>
+
+            <div class="score-grid">
+                <div class="score-item ats-score">
+                    <p>ATS SCORE</p>
+                    <span class="score-value" id="ats">0</span>
+                </div>
+                <div class="score-item resume-score">
+                    <p>RESUME SCORE</p>
+                    <span class="score-value" id="resumescore">0</span>
+                </div>
+                <div class="score-item match-score">
+                    <p>MATCH PERCENTAGE</p>
+                    <span class="score-value" id="matchPercentage">0</span>
+                </div>
+            </div>
+            
+            <div class="result-detail">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Critical Missing Skills:</h3>
+                <ul class="missing-list" id="missing">
+                    <li>Analysis pending. Upload your documents to begin.</li>
+                </ul>
+            </div>
+
+            <div class="result-detail summary-box">
+                <h3><i class="fa-solid fa-lightbulb"></i> Suggested Professional Summary:</h3>
+                <p id="correctedResumeText">The improved resume summary will appear here, offering a concise, powerful introduction based on your content.</p>
+            </div>
+
+        </section>
+
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./app.js"></script> 
 </body>
 </html>
