@@ -108,7 +108,7 @@ async function uploadCV() {
 
     // 3. API Call
     // Note: ensure this URL matches your actual backend URL (localhost vs vercel)
-    const response = await axios.post("https://ai-resume-analyzer-psi-lyart.vercel.app/api/upload",
+    const response = await axios.post("http://localhost:3000/api/upload",
       formdata,
       {
         headers: {
