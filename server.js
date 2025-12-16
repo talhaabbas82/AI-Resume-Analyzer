@@ -4,7 +4,6 @@ const cors = require("cors");
 const path = require("path");
 
 const router = require("./Router/route");
-const jobroutes = require("./Router/job");
 const resumeRoute = require("./Router/resume");
 const Authorization = require("./Middleware/authorization");
 
@@ -21,7 +20,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/api", router);
-app.use("/api", jobroutes);
 app.use("/api",Authorization, resumeRoute);
 
 
@@ -29,7 +27,7 @@ app.use("/api",Authorization, resumeRoute);
 
 
 
-  app.listen(PORT, () => {
+  app.listen(PORT, "0,0,0,0" ,() => {
     console.log(`Server running locally on port ${PORT}`);
   });
 
