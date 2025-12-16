@@ -1,6 +1,4 @@
 
-
-
 async function Signup(e) {
   e.preventDefault();
 
@@ -14,7 +12,7 @@ async function Signup(e) {
   }
 
   try {
-    const response = await axios.post(`https://ai-resume-analyzer-psi-lyart.vercel.app/api/Signup`, {
+    const response = await axios.post("http://localhost:3000/api/Signup", {
       Name,
       userName,
       Email,
@@ -46,7 +44,7 @@ async function Login(e) {
   }
 
   try {
-    const response = await axios.post(`https://ai-resume-analyzer-psi-lyart.vercel.app/api/Login`, {
+    const response = await axios.post("http://localhost:3000/api/Login", {
       Email,
       Password,
     });
